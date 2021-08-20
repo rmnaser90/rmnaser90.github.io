@@ -47,13 +47,13 @@ router.get('/weather/:city', async function (req, res) {
         let photoUrl
         try {
             photoUrl = await weatherApi.getCityPhoto(city)
-           
-       } catch (error) {
-           console.log(error);
-           photoUrl = "/default.jpg"
-           
-       }
-        
+
+        } catch (error) {
+            console.log(error);
+            photoUrl = "/default.jpg"
+
+        }
+
         const weather = {
             name: result.data.name,
             coord: result.data.coord,
@@ -85,12 +85,12 @@ router.post('/geoWeather/', async function (req, res) {
         const city = result.data.name
         let photoUrl
         try {
-             photoUrl = await weatherApi.getCityPhoto(city)
-            
+            photoUrl = await weatherApi.getCityPhoto(city)
+
         } catch (error) {
             console.log(error);
             photoUrl = "/default.jpg"
-            
+
         }
         const weather = {
             name: result.data.name,
@@ -109,7 +109,7 @@ router.post('/geoWeather/', async function (req, res) {
 })
 
 router.get('/cities', async function (req, res) {
-    updateDbHourly()
+    await updateDbHourly()
     const result = await City.find({})
     res.send(result)
 })
