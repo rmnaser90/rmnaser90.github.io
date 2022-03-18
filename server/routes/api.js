@@ -72,13 +72,7 @@ router.get('/weather/:city', async function (req, res) {
                 date: new Date()
             }
         }
-        let newWeather
-        try {
-
-            newWeather = new City(weather)
-        } catch (error) {
-            res.send({ err: true, msg: 'something went wrong' })
-        }
+            const newWeather = new City(weather)
         res.send(newWeather)
     }
 })
