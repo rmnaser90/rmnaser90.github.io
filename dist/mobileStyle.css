@@ -1,0 +1,233 @@
+
+
+    @keyframes example {
+        from {
+            opacity: 0; 
+        }
+        to {
+           display: 1;
+        }
+      }
+
+      @keyframes moveRight {
+        from {
+            left: 0px; 
+        }
+        to {
+           left: -800px;
+        }
+      }
+#mainContainer{
+    padding-top: 20px;
+    width: 100%;
+}
+
+#searchBox{
+    width: 100%;
+    position: relative;
+}
+
+#searchInput{
+    width: 84%;
+    height: 30px;
+    margin-left: 8%;
+    margin-right: 8%;
+    font-size: 20px;
+    text-align: center;
+    border: none;
+    background-color: rgba(255, 253, 253, 0.3);
+    border-bottom: 2px solid rgb(114, 109, 109);
+}
+#searchBtn{
+    font-size: 150%;
+    position: absolute;
+    right: 10%;
+    top: 3px;
+    color: rgb(114, 109, 109);
+}
+
+#searchResult{
+    font-size: 150%;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    min-height: 35vh;
+}
+.resultCity{
+    width: 100%;
+     position: relative;
+     display: grid;
+     align-items: center;
+     justify-items: center;
+     animation-name: example;
+    animation-duration: 1s;
+ }
+  
+.searchCityName{
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+.searchCondition{
+    margin-top: 1vh;
+    margin-bottom: 2vh;
+}
+.searchConditionImg{
+    width: 35vw;
+    height: auto;
+}
+.searchTemprature{
+    margin-top: 0px;
+    margin-bottom: 2vh;
+}
+.addToFavBtn{
+    position: absolute;
+    right: 10vw;
+    top:40%;
+    margin: 0px;
+    font-size: 150%;
+    transition: 0.6s;
+}
+.addToFavBtn:hover{
+    font-size: 250%;
+   
+}
+#favCitiesContainer{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  justify-items: center;
+}
+.favCity{
+    background-color: rgba(255, 253, 253, 0.589);
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px  black;
+    position: relative;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    width: 80%;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    animation-name: example;
+    animation-duration: 1s;
+    text-align: center;
+    transition: 0.4s;
+    cursor: pointer;
+}
+.favCity:hover{
+    position: relative;
+    width: 90%;
+    padding-bottom: 15px;
+    background-color: rgba(255, 253, 253, 0.774);
+    box-shadow: 0px 0px 12px 2px black;
+}
+
+.removeFromFavBtn{
+    display: block;
+    position: absolute;
+    right: 15px;
+    top:0px;
+    margin: 0px;
+    transition: 0.6s;
+    font-size: 150%;
+}
+.removeFromFavBtn:hover{
+    font-size: 250%;
+   
+}
+.favCityName{
+    margin: 0px;
+    margin-top: 25px;
+}
+.favConditionImg{
+    width: 40%;
+}
+.favTemprature{
+    margin: 0px;
+    
+}
+.favCondition{
+    margin: 0px;
+}
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0px;
+    background-color: lightcyan;
+    position: relative;
+    width: 100vw;
+    color: rgb(49, 48, 48);
+}
+
+  
+  .body{
+    display: block;
+    justify-self: center;
+    height: 106vh;
+    opacity: 0.5;
+    top: 0;
+    right: 0px;
+    bottom: 0;
+    min-width: 100%;
+    position: fixed;
+    z-index: -1;   
+  }
+  @keyframes zoomIn {
+    from {
+        font-size: 0px;
+        z-index: 99; 
+    }
+    to {
+       font-size: 16vw;
+    }
+  }
+  @keyframes dissappear {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+  }
+  .logo{
+      width: 30vw;
+  }
+  #enterLogo{
+    font-size: 16vw;
+    display: grid;
+    justify-items: center;
+    padding-top: 20vh;
+    animation-name: zoomIn;
+    animation-duration: 3s;
+    animation-delay: 0.6s;
+    justify-self: center;
+    height: 106vh;
+    background-color: white;
+    top: 0;
+    right: 0px;
+    bottom: 0;
+    min-width: 100%;
+    position: fixed;
+    z-index: 99;  
+    transform: 1s;
+    
+  }
+  #logoContainer{
+      display: none;
+  }
+
+  #signature{
+      font-size: 120%;
+    float: right;
+    margin-right: 10px;
+    font-family: 'Dancing Script', cursive;
+  }
+
+
+
+
+
+
+
+
+
+

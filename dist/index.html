@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobileStyle.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Montserrat:wght@800&display=swap" rel="stylesheet">
+<title>Weather App</title>
+</head>
+<body>
+<img class="body" id="background" src="default.jpg" alt="">
+<div id="enterLogo"><div id="logoContainer"><img src="rainy-3.svg" alt="" class="logo"><br> Weather <br> App</div></div>
+    <div id="mainContainer">
+        
+        <div id="searchBox">
+            <input type="text" id="searchInput" placeholder="Enter a city">
+            <div id="searchBtn"><i class="fas fa-search"></i></div>
+        </div>
+            <div id="searchResult">
+
+            </div>
+            <div id="favCitiesContainer">
+
+            </div>
+        
+
+        <p id="signature">Rami Naser Aldin</p>
+    </div>
+
+    <script id="search-template" type="text/x-handlebars-template">
+    <div class="resultCity" data-id="{{_id}}">
+<h2 class="searchCityName">{{name}}</h2>
+<h4 class="searchCondition">{{condition}}</h4>
+<div class="addToFavBtn"><i class="fas fa-plus"></i>
+
+</div>
+<img class="searchConditionImg" src="{{conditionPic}}" alt="">
+<h2 class="searchTemprature">{{temprature}}</h2>
+
+</div>
+</script>
+
+<script id="fav-template" type="text/x-handlebars-template">
+{{#each cities}}
+<div class="favCity" data-id="{{_id}}">
+    <div class="removeFromFavBtn"><i class="fas fa-minus"></i>
+
+    </div>
+    <h3 class="favCityName">{{name}}</h3>
+    <img src="{{conditionPic}}" class="favConditionImg" alt="">
+    <h4 class="favTemprature">{{temprature}}</h3>
+        <h5 class="favCondition">{{condition}}
+    </h4>
+</div>
+{{/each}}
+</script>
+
+    <script src="jquery/dist/jquery.js"></script>
+    <script src="handlebars/dist/handlebars.js"></script>
+    <script src="animation.js"></script>
+    <script src="apiManager.js"></script>
+    <script src="renderer.js"></script>
+    <script src="logic.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
+
