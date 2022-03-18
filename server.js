@@ -4,7 +4,7 @@ const app = express()
 const path = require('path')
 const api = require('./server/routes/api')
 const mongoose = require('mongoose')
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useFindAndModify: true })
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useFindAndModify: true,  useUnifiedTopology: true  })
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
