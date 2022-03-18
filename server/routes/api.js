@@ -58,7 +58,7 @@ router.get('/weather/:city', async function (req, res) {
             name: result.data.name,
             coord: result.data.coord,
             openWeatherId: result.data.id,
-            temprature: Math.floor(result.data.main.temp) + '°',
+            temperature: Math.floor(result.data.main.temp) + '°',
             condition: result.data.weather[0].description,
             conditionPic: `animated/${result.data.weather[0].icon}.svg`,
             photoUrl,
