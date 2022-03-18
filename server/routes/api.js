@@ -58,7 +58,6 @@ router.get('/weather/:city', async function (req, res) {
             console.log(error);
             res.send({ err: true, msg: "can't find city" })
             photoUrl = "/default.jpg"
-
         }
 
         const weather = {
@@ -74,7 +73,7 @@ router.get('/weather/:city', async function (req, res) {
         let newWeather
         try {
 
-             newWeather = new City(weather)
+            newWeather = new City(weather)
         } catch (error) {
             res.send({ err: true, msg: 'something went wrong' })
         }
@@ -84,65 +83,86 @@ router.get('/weather/:city', async function (req, res) {
 
 router.post('/geoWeather/', async function (req, res) {
     let coord = req.body
-    const ifExist = await City.findOne({
-        $and: [
-            { "coord.lat": coord.lat },
-            { "coord.lon": coord.lon }
-        ]
-    })
-    if (ifExist) {
-        res.send(ifExist)
-    } else {
-        console.log(coord);
-        const result = await weatherApi.getGeoWeather(coord.lat, coord.lon)
-        const city = result.data.name
-        let photoUrl
-        try {
-            photoUrl = await weatherApi.getCityPhoto(city)
+    try {
 
-        } catch (error) {
-            console.log(error);
-            photoUrl = "/default.jpg"
 
+        const ifExist = await City.findOne({
+            $and: [
+                { "coord.lat": coord.lat },
+                { "coord.lon": coord.lon }
+            ]
+        })
+        if (ifExist) {
+            res.send(ifExist)
+        } else {
+            console.log(coord);
+            const result = await weatherApi.getGeoWeather(coord.lat, coord.lon)
+            const city = result.data.name
+            let photoUrl
+            try {
+                photoUrl = await weatherApi.getCityPhoto(city)
+
+            } catch (error) {
+                console.log(error);
+                photoUrl = "/default.jpg"
+
+            }
+            const weather = {
+                name: result.data.name,
+                coord: result.data.coord,
+                openWeatherId: result.data.id,
+                temprature: Math.floor(result.data.main.temp) + '°',
+                condition: result.data.weather[0].description,
+                conditionPic: `animated/${result.data.weather[0].icon}.svg`,
+                photoUrl,
+                date: new Date()
+            }
+            const newWeather = new City(weather)
+            res.send(newWeather)
         }
-        const weather = {
-            name: result.data.name,
-            coord: result.data.coord,
-            openWeatherId: result.data.id,
-            temprature: Math.floor(result.data.main.temp) + '°',
-            condition: result.data.weather[0].description,
-            conditionPic: `animated/${result.data.weather[0].icon}.svg`,
-            photoUrl,
-            date: new Date()
-        }
-        const newWeather = new City(weather)
-        res.send(newWeather)
+    } catch (error) {
+        res.send({ err: true, msg: " something went wrong", error })
     }
-
 })
 
 router.get('/cities', async function (req, res) {
-    await updateDbHourly()
-    const result = await City.find({})
-    res.send(result)
+    try {
+        await updateDbHourly()
+        const result = await City.find({})
+        res.send(result)
+    } catch (error) {
+        res.send({ err: true, msg: "something went wrong", error })
+    }
 })
 
 router.post('/city', async function (req, res) {
     const requestCity = JSON.parse(req.body.city)
     const city = new City(requestCity)
-    const isExist = await City.findOne({ name: city.name })
-    if (isExist) {
-        res.send("already saved")
-    } else {
-        city.save().then(function (err, result) {
-            res.send(result)
-        })
+    try {
+
+
+        const isExist = await City.findOne({ name: city.name })
+        if (isExist) {
+            res.send("already saved")
+        } else {
+            city.save().then(function (err, result) {
+                res.send(result)
+            })
+        }
+    } catch (error) {
+        res.send({ err: true, msg: "something went wrong", error })
     }
 })
 
 router.delete('/city/:name', async function (req, res) {
     const cityName = req.params
-    const result = await City.findOneAndDelete(cityName)
-    res.send(result)
+    try {
+
+        const result = await City.findOneAndDelete(cityName)
+        res.send(result)
+    } catch (error) {
+        res.send({ err: true, msg: "something went wrong", error })
+
+    }
 })
 module.exports = router
