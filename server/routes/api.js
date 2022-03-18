@@ -43,13 +43,15 @@ router.get('/weather/:city', async function (req, res) {
     if (ifExist) {
         res.send(ifExist)
     } else {
-        const result = await weatherApi.getWetherBycity(city)
+        let result 
         let photoUrl
         try {
+            result = await weatherApi.getWetherBycity(city) 
             photoUrl = await weatherApi.getCityPhoto(city)
 
         } catch (error) {
             console.log(error);
+            res.send({err:true,msg:"can't find city"})
             photoUrl = "/default.jpg"
 
         }
