@@ -59,16 +59,18 @@ router.get('/weather/:city', async function (req, res) {
             res.send({ err: true, msg: "can't find city" })
             photoUrl = "/default.jpg"
         }
-
-        const weather = {
-            name: result.data.name,
-            coord: result.data.coord,
-            openWeatherId: result.data.id,
-            temprature: Math.floor(result.data.main.temp) + '°',
-            condition: result.data.weather[0].description,
-            conditionPic: `animated/${result.data.weather[0].icon}.svg`,
-            photoUrl,
-            date: new Date()
+        let weather
+        if (result.data) { 
+            weather = {
+                name: result.data.name,
+                coord: result.data.coord,
+                openWeatherId: result.data.id,
+                temprature: Math.floor(result.data.main.temp) + '°',
+                condition: result.data.weather[0].description,
+                conditionPic: `animated/${result.data.weather[0].icon}.svg`,
+                photoUrl,
+                date: new Date()
+            }
         }
         let newWeather
         try {
