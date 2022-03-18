@@ -37,43 +37,48 @@ const hour = 1000 * 60 * 60
 setInterval(updateDbHourly, hour)
 
 router.get('/weather/:city', async function (req, res) {
-    let { city } = req.params
-    city = city.split('')[0].toUpperCase() + city.split('').slice(1, city.length).join('').toLowerCase()
-    let ifExist
     try {
-        ifExist = await City.findOne({ name: city })
-    } catch (error) {
-        ifExist = null
-    }
-    if (ifExist) {
-        res.send(ifExist)
-    } else {
-        let result
-        let photoUrl
+        let { city } = req.params
+        city = city.split('')[0].toUpperCase() + city.split('').slice(1, city.length).join('').toLowerCase()
+        let ifExist
         try {
-            result = await weatherApi.getWetherBycity(city)
-            photoUrl = await weatherApi.getCityPhoto(city)
-
+            ifExist = await City.findOne({ name: city })
         } catch (error) {
-            console.log(error);
-            res.send({ err: true, msg: "can't find city" })
-            photoUrl = "/default.jpg"
+            ifExist = null
         }
-        let weather
-        if (result) { 
-            weather = {
-                name: result.data.name,
-                coord: result.data.coord,
-                openWeatherId: result.data.id,
-                temprature: Math.floor(result.data.main.temp) + '°',
-                condition: result.data.weather[0].description,
-                conditionPic: `animated/${result.data.weather[0].icon}.svg`,
-                photoUrl,
-                date: new Date()
+        if (ifExist) {
+            res.send(ifExist)
+        } else {
+            let result
+            let photoUrl
+            try {
+                result = await weatherApi.getWetherBycity(city)
+                photoUrl = await weatherApi.getCityPhoto(city)
+
+            } catch (error) {
+                console.log(error);
+                res.send({ err: true, msg: "can't find city" })
+                photoUrl = "/default.jpg"
+                return
             }
-        }
+            let weather
+            if (result) {
+                weather = {
+                    name: result.data.name,
+                    coord: result.data.coord,
+                    openWeatherId: result.data.id,
+                    temprature: Math.floor(result.data.main.temp) + '°',
+                    condition: result.data.weather[0].description,
+                    conditionPic: `animated/${result.data.weather[0].icon}.svg`,
+                    photoUrl,
+                    date: new Date()
+                }
+            }
             const newWeather = new City(weather)
-        res.send(newWeather)
+            res.send(newWeather)
+        }
+    } catch (error) {
+        res.send({ err: true, msg: "something went wrong", error })
     }
 })
 
