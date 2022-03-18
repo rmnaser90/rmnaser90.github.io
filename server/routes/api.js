@@ -60,7 +60,7 @@ router.get('/weather/:city', async function (req, res) {
             photoUrl = "/default.jpg"
         }
         let weather
-        if (result.data) { 
+        if (result) { 
             weather = {
                 name: result.data.name,
                 coord: result.data.coord,
